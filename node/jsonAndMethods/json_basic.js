@@ -53,5 +53,74 @@ console.log(JSON.stringify(user));  // {} 빈 객체가 출력됨
 
 /*
     주의점
-    
+    순환 참조가 있다면 원하는 대로 객체를 문자열로 바꾸기 불가능함.
  */
+let room = {
+    number: 23
+}
+let meetup = {
+    title: 'Conference',
+    participants: ['john', 'ann']
+}
+meetup.place = room;
+room.occupiedBy = meetup;
+
+// TypeError: Converting circular structure to JSON
+// JSON.stringify(meetup);
+
+
+// Replacer 로 원하는 프로퍼티만 직렬화하기
+/*
+    JSON.stringify 의 전체 문법
+    let json = JSON.stringify(value[, replacer, space])
+    value : 인코딩 하려는 값
+    replacer : JSON 으로 인코딩하길 원하는 프로퍼티가 담긴 배열. 또는 매핑 함수 function(key, value)
+    space : 서식 변경 목적으로 사용할 공백 문자 수
+
+    보통 stringify 엔 인수를 하나만 넘겨서 사용하나, 순환 참조를 다룰 경우처럼 전환 프로세스를 정교하게 조정하려면 두 번째 인수 사용해야 함.
+ */
+let room2 = {
+    number: 23
+};
+let meetup2 = {
+    title: 'Conference',
+    participants : [{name: 'John'}, {name: 'Alice'}],
+    place: room2
+};
+room2.occupiedBy = meetup2;
+console.log(JSON.stringify(meetup2, ['title', 'participants', 'place', 'name', 'number']))
+
+console.log(JSON.stringify(meetup2, function replacer(key, value) {
+    console.log(`${key}: ${value}`);
+    return (key === 'occupiedBy') ? undefined : value;
+}))
+
+/*
+    space 로 가독성 높이기
+    space 는 가독성을 높이기 위한 용도로 만들어졌기 때문에, 단순 전달 목적이라면 space 없이 직렬화하는 편임.
+ */
+let man = {
+    name: 'John',
+    age: 25,
+    roles: {
+        isAdmin: false,
+        isEditor: true
+    }
+}
+console.log(JSON.stringify(man, null, 2));
+
+
+/*
+    커스텀 toJSON
+    toString 을 이용해 객체를 문자형으로 변환시키는 것처럼, 객체에 toJSON 메서드가 구현되어 있으면 객체를 JSON 으로 바꿀 수 있다.
+    JSON.stringify 는 이런 경우를 감지하고 toJSON 을 자동으로 호출한다
+ */
+let room3 = {
+    number: 23
+};
+let meetup3 = {
+    title: 'Conference',
+    date: new Date(Date.UTC(2017, 0, 1)),
+    room3
+};
+console.log(JSON.stringify(meetup3));
