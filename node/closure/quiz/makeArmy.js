@@ -28,6 +28,9 @@ army[0]();
 army[5]();
 
 /*
+
+TODO 추후 PR 번역작업 기여해야 함!
+
 Let’s examine what’s done inside makeArmy, and the solution will become obvious.
 
 It creates an empty array shooters:

@@ -1,4 +1,7 @@
 /*
+
+TODO 추후 PR 번역작업 기여해야 함!
+
 Is variable visible?
 중요도: 4
 What will be the result of this code?

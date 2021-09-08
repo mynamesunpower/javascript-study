@@ -1,4 +1,6 @@
 /*
+TODO 추후 PR 번역작업 기여해야 함!
+
 Which variables are available?
 중요도: 5
 The function makeWorker below makes another function and returns it. That new function can be called from somewhere else.
