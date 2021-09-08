@@ -133,18 +133,18 @@ console.log(counter());
         _makeCounter()를 호출하면 호출할 때마다 새로운 렉시컬 환경 객체가 만들어지고, 여기에 makeCounter 를 실행하는데 필요한 변수들이 저장됨.
         _makeCounter()를 호출할 때의 렉시컬 환경
                      _makeCounter() 의 렉시컬 환경                             전역 렉시컬 환경
-        Line 139 )))        { count: 0 }            -> (outer) { _makeCounter: function, counter: undefined } -> (outer) null
+        Line 158 )))        { count: 0 }            -> (outer) { _makeCounter: function, counter: undefined } -> (outer) null
                      _makeCounter()가 실행되는 도중에는 본문(return count++)이 한 줄 짜리인 중첩 함수가 만들어진다.
                      현재는 중첩 함수가 생성되기만 하고 실행은 되지 않은 상태.
                      *** 모든 함수는 함수가 생성된 곳의 렉시컬 환경을 기억한다 ***
                      [[Environment]]라 불리는 숨김 프로퍼티를 갖는데, 여기에 함수가 만들어진 곳의 렉시컬 환경에 대한 참조가 저장된다.
 
-        Line 147 )))  function() [[Environment]]     -> { count:0 } ->              (outer) { _makeCounter: function, counter: undefined } -> (outer) null
+        Line 161 )))  function() [[Environment]]     -> { count:0 } ->              (outer) { _makeCounter: function, counter: undefined } -> (outer) null
                      따라서 counter.[[Environment]] 에는 { count: 0 }이 있는 렉시컬 환경에 대한 참조가 저장된다.
                      호출 장소와 관계없이 함수가 자신이 태어난 곳을 기억할 수 있는 것은 바로 이 프로퍼티 때문.
                      [[Environment]]는 함수가 생성될 때 딱 한 번 값이 세팅되고 영원히 불변.
 
-        Line 159 ))) counter() 를 호출하면 각 호출마다 새로운 렉시컬 환경이 생성된다. 그리고 그 환경은 counter.[[Environment]]에 저장된 렉시컬 환경을 외부 렉시컬 환경으로서 참조한다.
+        Line 166 ))) counter() 를 호출하면 각 호출마다 새로운 렉시컬 환경이 생성된다. 그리고 그 환경은 counter.[[Environment]]에 저장된 렉시컬 환경을 외부 렉시컬 환경으로서 참조한다.
                       counter()     _makeCounter()의 렉시컬 환경                        전역 렉시컬 환경
                      { <empty> } ->    (outer) { count: 0 }    -> (outer) { makeCounter: function, counter: function } -> (outer) null
                      실행 흐름이 중첩 함수의 본문 ( return count++ ) 로 넘어오면 count 변수가 필요한데,
