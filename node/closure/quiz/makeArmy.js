@@ -9,9 +9,12 @@ function makeArmy() {
     let shooters = [];
 
     let i = 0;
+    // 1. for 문으로 변경하거나 (let i = 0 ; i < length ; i++ ) -> 이것은 내부 렉시컬 환경으로 잡아줌.
+    // 2. while 문 안에서 지역 변수를 선언
     while (i < 10) {
-        let shooter = function() {
-            console.log(i);
+        let j = i;
+        let shooter = function() {  // 이렇게 하면 shooter.[[Environment]]는 j = i 일 때 자신이 생성되었다는 것을 기억하고 있음!
+            console.log(j);
         }
         shooters.push(shooter);
         i++;
