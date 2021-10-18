@@ -26,8 +26,28 @@ console.log(array1.reduce(reducer, 5));
                     빈 배열에서 initialValue 없이 reduce() 호출하면 에러.
  */
 
+
+// 객체 배열에서의 합산
 let initialValue = 0;
 let sum = [{x: 1}, {x: 2}, {x: 3}].reduce((acc, cur) => {
     return acc + cur.x;
 }, initialValue);
 console.log(sum);
+
+
+// 중첩 배열 펼치기
+const flattened = [[0, 1], [2, 3], [4, 5]].reduce((acc, cur) => acc.concat(cur), []);
+console.log(flattened);
+
+
+// 객체 내의 값 인스턴스 개수 세기
+const names = ['Alice', 'Bob', 'Tiff', 'Bruce', 'Alice'];
+const countedNames = names.reduce((acc, cur) => {
+    if (cur in acc) {
+        acc[cur]++;
+    } else {
+        acc[cur] = 1;
+    }
+    return acc;
+}, {});
+console.log(countedNames);
