@@ -1,3 +1,4 @@
+'use strict';
 /*
 데코레이팅 "defer()"를 함수에 추가하기
 중요도: 4
@@ -12,7 +13,10 @@ function f(a, b) {
 Function.prototype.defer = function (milliseconds) {
     let f = this;
     return function(...args) {
-        setTimeout(() => f.apply(this, args), milliseconds);
+        setTimeout(() => {
+            console.log(this);
+            f.apply(this, args);
+        }, milliseconds);
     }
 }
 

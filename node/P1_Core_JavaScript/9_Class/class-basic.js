@@ -109,3 +109,50 @@ class Juice {
     };
 }
 new Juice().sayHi();
+
+
+
+/*
+    클래스 필드
+    :: 구식 브라우저에서는 폴리필 필요할 수 있음!
+    클래스를 정의할 때, 프로퍼티명 = 값 을 쓰면 클래스 필드 생성.
+    Cat.prototype 이 아닌 개별 객체에만 필드가 설정됨!
+ */
+class Cat {
+    name = 'rang';
+    sayHi() {
+        console.log(`Hello, ${this.name}!`);
+    }
+}
+let cat = new Cat();
+console.log(cat.name);
+console.log(Cat.prototype.name);
+
+/*
+    클래스 필드로 바인딩된 메서드 만들기
+    - JS의 함수는 동적인 this 를 가짐!
+    :: 따라서 객체 메서드를 여기저기 전달에 전혀 다른 문맥에서 호출하면 this 는 원래 객체를 참조하지 않음!
+ */
+class Button {
+    constructor(value) {
+        this.value = value;
+    }
+
+    click() {
+        console.log(this.value);
+    }
+
+    sayHi = () => {
+        console.log(this.value);
+    }
+}
+let button = new Button('hello');
+button.click(); // 호출하면 button 객체에 value 필드가 있으므로.
+console.log(button.value);
+setTimeout(button.click, 1000); // undefined
+
+// 위 setTimeout 을 가능케 하려면
+setTimeout(() => button.click(), 1000);
+
+setTimeout(button.sayHi, 1000);
+// 클래스 필드 () => {...} 는 각 Button 객체마다 "독립적"인 함수를 만들고 함수의 this 를 해당 객체에 바인딩함.
