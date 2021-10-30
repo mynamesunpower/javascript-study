@@ -21,7 +21,7 @@ function sum(a) {
     return f;
 }
 
-console.log(sum(1)(2).toString());
+console.log(sum(1)(2)(3));
 
 // 급 어려워진다
 // TODO reminder

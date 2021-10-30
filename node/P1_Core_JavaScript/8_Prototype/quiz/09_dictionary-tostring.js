@@ -13,12 +13,12 @@ let dictionary = Object.create(null, {
 });
 
 // dictionary.toString 메서드를 추가하는 코드
-// Object.setPrototypeOf(dictionary, {
-//     toString: {
-//         value: Object.keys(this).join(),
-//         enumerable: false
-//     }
-// });
+Object.setPrototypeOf(dictionary, {
+    toString: {
+        value: Object.keys(this).join(),
+        enumerable: false
+    }
+});
 
 // 데이터 추가
 dictionary.apple = 'Apple';

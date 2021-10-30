@@ -89,6 +89,7 @@ console.log(Object.keys(woman));
     구성 가능하지 않음을 나타내는 플래그 configurable: false 는 몇몇 내장 객체에 기본으로 설정되어 있음!
     설정되어 있다면, 그 프로퍼티는 객체에서 지울 수 없음.
  */
+
 let descriptor2 = Object.getOwnPropertyDescriptor(Math, 'PI');
 console.log(JSON.stringify(descriptor2, null, 2));
 Math.PI = 3; // 수정도 불가능, 지우는 것도 불가능.

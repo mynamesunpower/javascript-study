@@ -12,6 +12,7 @@ function Meow() {
 Meow.prototype = {};
 let obj = new Meow();
 
+
 let obj2 = new obj.constructor(); // 가능.
 // 위 코드가 동작하지 않게 하려면? 프로토타입을 빈 객체로 덮어쓴다.
 
