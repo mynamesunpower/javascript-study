@@ -32,6 +32,7 @@
 //     };
 //
 // }
+// 생성자 함수 / 일반 함수 / 클래스
 
 class Clock {
     constructor({template}) {
